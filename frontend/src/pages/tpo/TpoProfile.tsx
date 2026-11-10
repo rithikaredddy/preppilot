@@ -37,7 +37,7 @@ export function TpoProfile() {
   return (
     <div className="mx-auto max-w-xl">
       <PageHeader kicker="Profile" title="Office profile" body={`Signed in as ${user?.email ?? ""}.`} />
-      <form className="mt-8 space-y-4 rounded-lg border border-line bg-foam p-5" onSubmit={onSubmit} noValidate>
+      <form className="mt-8 space-y-4 rounded-2xl border border-line bg-foam shadow-card p-5" onSubmit={onSubmit} noValidate>
         {error instanceof ApiError ? <Alert>{error.message}</Alert> : null}
         <Field id="full_name" label="Full name" value={form.full_name} error={fieldError(error, "full_name")} onChange={(event) => setForm({ ...form, full_name: event.target.value })} />
         <Field id="department" label="Department" value={form.department} error={fieldError(error, "department")} onChange={(event) => setForm({ ...form, department: event.target.value })} />

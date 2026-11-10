@@ -1,9 +1,12 @@
 import { useState, type FormEvent, type ReactNode } from "react"
 import { Link, useNavigate } from "react-router"
-import { Alert, Button, Field, PasswordField } from "../components/ui"
+import { Alert, Button, Field, Logo, PasswordField } from "../components/ui"
 import { useAuth } from "../context/auth"
 import { ApiError, fieldError } from "../services/api"
 import { homeFor } from "../lib/format"
+import { ThemeToggle } from "../components/ThemeToggle"
+import { icons } from "../components/icons"
+import { BRAND, BRAND_TAGLINE } from "../lib/theme"
 
 export function LoginPage() {
   const { login } = useAuth()
@@ -57,17 +60,17 @@ export function LoginPage() {
           Sign in
         </Button>
       </form>
-      <p className="mt-4 text-sm text-muted">
-        <Link to="/forgot-password" className="font-medium text-navy">
-          Forgot password
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-2 text-sm text-muted">
+        <Link to="/forgot-password" className="font-medium text-brand hover:underline">
+          Forgot password?
         </Link>
-      </p>
-      <p className="mt-2 text-sm text-muted">
-        New here?{" "}
-        <Link to="/register" className="font-medium text-navy">
-          Create an account
-        </Link>
-      </p>
+        <span>
+          New here?{" "}
+          <Link to="/register" className="font-semibold text-brand hover:underline">
+            Create an account
+          </Link>
+        </span>
+      </div>
     </AuthScreen>
   )
 }
@@ -82,23 +85,50 @@ export function AuthScreen({
   children: ReactNode
 }) {
   return (
-    <div className="grid min-h-screen md:grid-cols-[minmax(0,0.9fr)_minmax(22rem,1fr)]">
-      <section className="hidden bg-navy px-10 py-12 text-foam md:flex md:flex-col md:justify-between">
-        <p className="font-serif text-3xl">Interview Prep</p>
-        <div>
-          <h1 className="font-serif text-5xl leading-tight">Campus placements, with a shared record.</h1>
-          <p className="mt-4 max-w-md text-foam/75">
+    <div className="grid min-h-screen bg-paper lg:grid-cols-[minmax(0,1fr)_minmax(26rem,0.9fr)]">
+      <section className="relative hidden overflow-hidden bg-sidebar px-12 py-12 text-white lg:flex lg:flex-col lg:justify-between">
+        <div className="pointer-events-none absolute -top-32 -left-24 h-96 w-96 rounded-full bg-brand-gradient opacity-40 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute -right-24 -bottom-32 h-96 w-96 rounded-full bg-cyan-500/25 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0 bg-grid opacity-[0.06]" aria-hidden="true" />
+        <Link to="/" className="relative w-fit" aria-label={`${BRAND} home`}>
+          <Logo name={BRAND} size={36} />
+        </Link>
+        <div className="relative max-w-lg">
+          <h1 className="font-serif text-5xl leading-[1.08] font-extrabold">
+            Practice today. <span className="text-brand-gradient">Get placed</span> tomorrow.
+          </h1>
+          <p className="mt-5 text-white/70">
             Students and the placement office sign in to the same system. Each role sees only its own screens.
           </p>
+          <ul className="mt-8 space-y-3 text-sm text-white/85">
+            {[
+              [icons.resume, "ATS-style resume score against any role"],
+              [icons.chat, "AI mock interviews that follow up on your answers"],
+              [icons.code, "Coding practice with hidden tests and AI review"],
+              [icons.target, "Readiness estimate and a personal roadmap"],
+            ].map(([icon, text], index) => (
+              <li key={index} className="flex items-center gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/10 text-[#a5b4fc] ring-1 ring-white/10">{icon}</span>
+                {text}
+              </li>
+            ))}
+          </ul>
         </div>
-        <p className="text-sm text-foam/60">AI Interview Preparation Platform</p>
+        <p className="relative text-sm text-white/50">{BRAND_TAGLINE}</p>
       </section>
-      <section className="flex items-center bg-paper px-5 py-10">
-        <div className="mx-auto w-full max-w-md">
-          <p className="font-serif text-2xl text-navy md:hidden">Interview Prep</p>
-          <h2 className="mt-6 font-serif text-4xl">{title}</h2>
-          <p className="mt-2 mb-6 text-sm leading-relaxed text-muted">{lede}</p>
-          {children}
+      <section className="relative flex items-center px-5 py-10">
+        <div className="absolute top-5 right-5">
+          <ThemeToggle />
+        </div>
+        <div className="mx-auto w-full max-w-md animate-rise">
+          <Link to="/" className="lg:hidden" aria-label={`${BRAND} home`}>
+            <Logo name={BRAND} />
+          </Link>
+          <div className="mt-8 rounded-3xl border border-line bg-foam p-6 shadow-lift sm:p-8 lg:mt-0">
+            <h2 className="font-serif text-3xl font-bold">{title}</h2>
+            <p className="mt-2 mb-6 text-sm leading-relaxed text-muted">{lede}</p>
+            {children}
+          </div>
         </div>
       </section>
     </div>

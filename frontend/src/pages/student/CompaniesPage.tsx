@@ -43,19 +43,19 @@ export function CompaniesPage() {
           <Link
             key={company.slug}
             to={`/app/companies/${company.slug}`}
-            className="group rounded-2xl border border-line bg-foam p-5 transition hover:-translate-y-0.5 hover:border-navy/30"
+            className="group rounded-2xl border border-line bg-foam p-5 transition hover:-translate-y-0.5 hover:border-brand/30"
           >
             <div className="flex items-center gap-3">
-              <span aria-hidden="true" className="grid h-12 w-12 place-items-center rounded-2xl bg-navy font-serif text-lg text-foam">
+              <span aria-hidden="true" className="grid h-12 w-12 place-items-center rounded-2xl bg-navy font-serif text-lg text-onbrand">
                 {company.name.slice(0, 1)}
               </span>
               <div>
-                <h2 className="font-serif text-2xl group-hover:text-navy">{company.name}</h2>
+                <h2 className="font-serif text-2xl group-hover:text-brand">{company.name}</h2>
                 <p className="text-xs text-muted">{company.question_count} questions</p>
               </div>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-muted">{company.overview}</p>
-            <p className="mt-4 text-sm font-semibold text-navy">View questions →</p>
+            <p className="mt-4 text-sm font-semibold text-brand">View questions →</p>
           </Link>
         ))}
       </div>

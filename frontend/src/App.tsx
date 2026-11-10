@@ -121,7 +121,7 @@ function NotFound() {
         <p className="text-xs font-semibold tracking-wider text-muted uppercase">404</p>
         <h1 className="mt-1 font-serif text-4xl">Page not found</h1>
         <p className="mt-2 text-sm text-muted">The link may be old, or the page has moved.</p>
-        <Link to="/" className="mt-5 inline-block rounded-md bg-navy px-4 py-2.5 text-sm font-semibold text-foam">
+        <Link to="/" className="mt-5 inline-block rounded-xl bg-navy px-4 py-2.5 text-sm font-semibold text-onbrand">
           Back home
         </Link>
       </div>

@@ -118,17 +118,17 @@ export function TpoDashboard() {
       />
       {insights ? (
         <section className="mt-6 grid gap-3 md:grid-cols-3">
-          <article className="rounded-lg border border-line bg-foam p-4">
+          <article className="rounded-2xl border border-line bg-foam shadow-card p-4">
             <p className="text-sm text-muted">Students{branch ? ` in ${branch}` : ""}</p>
             <p className="mt-1 font-serif text-3xl">{insights.student_count}</p>
           </article>
-          <article className="rounded-lg border border-line bg-foam p-4">
+          <article className="rounded-2xl border border-line bg-foam shadow-card p-4">
             <p className="text-sm text-muted">Readiness below {insights.threshold}%</p>
             <p className={`mt-1 font-serif text-3xl ${insights.below_threshold_count > 0 ? "text-clay" : ""}`}>
               {insights.below_threshold_count}
             </p>
           </article>
-          <article className="rounded-lg border border-line bg-foam p-4">
+          <article className="rounded-2xl border border-line bg-foam shadow-card p-4">
             <p className="text-sm text-muted">Common weak areas</p>
             {insights.common_weak_areas.length ? (
               <ul className="mt-2 flex flex-wrap gap-1.5">
@@ -151,7 +151,7 @@ export function TpoDashboard() {
         </div>
       )}
       {insights && insights.branch_averages.length > 0 && !branch ? (
-        <div className="mt-3 overflow-x-auto rounded-lg border border-line bg-foam">
+        <div className="mt-3 overflow-x-auto rounded-2xl border border-line bg-foam shadow-card">
           <table className="w-full min-w-[28rem] text-left text-sm">
             <caption className="sr-only">Average readiness by branch</caption>
             <thead className="border-b border-line text-muted">
@@ -167,7 +167,7 @@ export function TpoDashboard() {
                   <td className="px-4 py-3">
                     <button
                       type="button"
-                      className="font-medium text-navy hover:underline"
+                      className="font-medium text-brand hover:underline"
                       onClick={() => {
                         setBranch(row.branch)
                         setPage(1)
@@ -187,7 +187,7 @@ export function TpoDashboard() {
         </div>
       ) : null}
 
-      <div className="mt-6 grid gap-3 rounded-lg border border-line bg-foam p-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-3 rounded-2xl border border-line bg-foam shadow-card p-4 sm:grid-cols-3">
         <SelectField
           id="branch"
           label="Branch"
@@ -253,7 +253,7 @@ export function TpoDashboard() {
       ) : null}
       {data && data.items.length > 0 ? (
         <div
-          className={`mt-6 overflow-x-auto rounded-lg border border-line bg-foam transition-opacity ${loading ? "opacity-60" : ""}`}
+          className={`mt-6 overflow-x-auto rounded-2xl border border-line bg-foam shadow-card transition-opacity ${loading ? "opacity-60" : ""}`}
           aria-busy={loading}
         >
           <table className="w-full min-w-[48rem] text-left text-sm">
@@ -271,7 +271,7 @@ export function TpoDashboard() {
               {data.items.map((student) => (
                 <tr key={student.id} className="border-b border-line last:border-0 hover:bg-paper/60">
                   <td className="px-4 py-3 font-medium">
-                    <Link to={`/tpo/students/${student.id}`} className="text-navy hover:underline">
+                    <Link to={`/tpo/students/${student.id}`} className="text-brand hover:underline">
                       {student.full_name}
                     </Link>
                   </td>

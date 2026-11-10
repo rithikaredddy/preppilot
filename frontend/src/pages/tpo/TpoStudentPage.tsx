@@ -6,7 +6,7 @@ import type { StudentDetail } from "../../types"
 
 function BackLink() {
   return (
-    <Link to="/tpo" className="text-sm font-medium text-navy hover:underline">
+    <Link to="/tpo" className="text-sm font-medium text-brand hover:underline">
       ← Back to the batch
     </Link>
   )
@@ -44,7 +44,7 @@ export function TpoStudentPage() {
 
   const readiness = student.readiness_percentage
   const shown = readiness === null ? null : Math.round(readiness)
-  const tone = shown === null ? "text-muted" : shown < 60 ? "text-clay" : shown >= 75 ? "text-pine" : "text-navy"
+  const tone = shown === null ? "text-muted" : shown < 60 ? "text-clay" : shown >= 75 ? "text-pine" : "text-brand"
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -63,7 +63,7 @@ export function TpoStudentPage() {
             .join(" · ")}
         />
       </div>
-      <section className="mt-6 rounded-lg border border-line bg-foam p-5">
+      <section className="mt-6 rounded-2xl border border-line bg-foam shadow-card p-5">
         <p className="text-sm text-muted">Placement readiness</p>
         <p className={`mt-1 font-serif text-5xl ${tone}`}>{readiness === null ? "—" : `${Math.round(readiness)}%`}</p>
         <p className="mt-2 text-sm text-muted">{student.headline ?? "This student has no stored scores yet."}</p>
@@ -74,7 +74,7 @@ export function TpoStudentPage() {
         </div>
       </section>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <section className="rounded-lg border border-line bg-foam p-5">
+        <section className="rounded-2xl border border-line bg-foam shadow-card p-5">
           <h2 className="font-serif text-2xl">Weak areas</h2>
           {student.weak_areas.length === 0 ? (
             <p className="mt-2 text-sm text-muted">No score is below 60.</p>
@@ -89,7 +89,7 @@ export function TpoStudentPage() {
             </ul>
           )}
         </section>
-        <section className="rounded-lg border border-line bg-foam p-5">
+        <section className="rounded-2xl border border-line bg-foam shadow-card p-5">
           <h2 className="font-serif text-2xl">Technical domains</h2>
           {student.domains.length === 0 ? (
             <p className="mt-2 text-sm text-muted">No technical interview yet.</p>

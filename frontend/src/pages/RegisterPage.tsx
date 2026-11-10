@@ -94,16 +94,16 @@ export function RegisterPage() {
         {error instanceof ApiError ? <Alert>{error.message}</Alert> : null}
         <fieldset>
           <legend className="mb-2 text-sm font-medium">I am registering as</legend>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-1 rounded-2xl border border-line bg-paper p-1">
             {(
               [
                 ["student", "Student"],
-                ["tpo", "TPO"],
+                ["tpo", "Placement office"],
               ] as const
             ).map(([value, label]) => (
               <label
                 key={value}
-                className={`cursor-pointer rounded-md border px-3 py-2 text-center text-sm font-medium transition focus-within:ring-2 focus-within:ring-navy focus-within:ring-offset-2 ${role === value ? "border-navy bg-navy text-foam" : "border-line bg-foam hover:bg-paper"}`}
+                className={`cursor-pointer rounded-xl px-3 py-2 text-center text-sm font-semibold transition focus-within:ring-2 focus-within:ring-brand ${role === value ? "bg-foam text-brand shadow-card" : "text-muted hover:text-ink"}`}
               >
                 <input
                   className="sr-only"
@@ -150,9 +150,9 @@ export function RegisterPage() {
             </div>
             {otpMessage ? <Notice>{otpMessage}</Notice> : null}
             {devOtp ? (
-              <div className="rounded-md border border-navy bg-foam px-4 py-3">
+              <div className="rounded-xl border border-navy bg-foam px-4 py-3">
                 <p className="text-sm text-muted">No email was sent. Use this code</p>
-                <p className="mt-1 font-serif text-4xl tracking-[0.25em] text-navy">{devOtp}</p>
+                <p className="mt-1 font-serif text-4xl tracking-[0.25em] text-brand">{devOtp}</p>
               </div>
             ) : null}
           </>
@@ -163,7 +163,7 @@ export function RegisterPage() {
       </form>
       <p className="mt-4 text-sm text-muted">
         Already registered?{" "}
-        <Link to="/login" className="font-medium text-navy">
+        <Link to="/login" className="font-medium text-brand">
           Sign in
         </Link>
       </p>

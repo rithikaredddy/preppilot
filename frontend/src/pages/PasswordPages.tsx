@@ -50,7 +50,7 @@ export function ForgotPasswordPage() {
         </Button>
       </form>
       <p className="mt-4 text-sm">
-        <Link to="/login" className="font-medium text-navy">
+        <Link to="/login" className="font-medium text-brand">
           Back to sign in
         </Link>
       </p>
@@ -95,7 +95,7 @@ export function ResetPasswordPage() {
         </Button>
       </form>
       <p className="mt-4 text-sm">
-        <Link to="/login" className="font-medium text-navy">
+        <Link to="/login" className="font-medium text-brand">
           Sign in
         </Link>
       </p>

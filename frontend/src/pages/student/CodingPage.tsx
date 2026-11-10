@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { Link, useSearchParams } from "react-router"
 import { Alert, Badge, Button, EmptyState, LoadingLine, PageHeader, Skeleton } from "../../components/ui"
 import { readStorage, statusLabel, statusTone, writeStorage } from "../../lib/format"
+import { useTheme } from "../../lib/theme"
 import { ApiError, api } from "../../services/api"
 import type { CodingProblem, CodingProblemSummary, Company, RunResult, Submission } from "../../types"
 
@@ -22,8 +23,8 @@ type Language = keyof typeof languages
 const difficultyTone: Record<string, string> = {
   easy: "text-pine",
   beginner: "text-pine",
-  medium: "text-navy",
-  intermediate: "text-navy",
+  medium: "text-brand",
+  intermediate: "text-brand",
   hard: "text-clay",
   advanced: "text-clay",
 }
@@ -37,6 +38,7 @@ function initialCode(problem: CodingProblem, language: Language) {
 }
 
 export function CodingPage() {
+  const [editorTheme] = useTheme()
   const [params, setParams] = useSearchParams()
   const companyFilter = params.get("company") ?? "all"
   const [problems, setProblems] = useState<CodingProblemSummary[] | null>(null)
@@ -222,7 +224,7 @@ export function CodingPage() {
             id="problem-select"
             value={activeId}
             onChange={(event) => chooseProblem(event.target.value)}
-            className="w-full rounded-md border border-line bg-foam px-3 py-2.5"
+            className="w-full rounded-xl border border-line bg-foam px-3 py-2.5"
           >
             {visible.map((item, index) => (
               <option key={item.id} value={item.id}>
@@ -256,12 +258,12 @@ export function CodingPage() {
                 type="button"
                 aria-current={active ? "true" : undefined}
                 onClick={() => chooseProblem(item.id)}
-                className={`block w-full rounded-lg px-3 py-2.5 text-left transition ${active ? "bg-navy text-foam" : "hover:bg-paper"}`}
+                className={`block w-full rounded-lg px-3 py-2.5 text-left transition ${active ? "bg-navy text-onbrand" : "hover:bg-paper"}`}
               >
                 <span className="text-xs opacity-70">{index + 1}.</span>
                 <span className="mt-0.5 block text-sm font-medium">{item.title}</span>
                 <span
-                  className={`mt-1 block text-xs capitalize ${active ? "text-foam/80" : (difficultyTone[item.difficulty] ?? "text-muted")}`}
+                  className={`mt-1 block text-xs capitalize ${active ? "text-onbrand/80" : (difficultyTone[item.difficulty] ?? "text-muted")}`}
                 >
                   {item.difficulty}
                   {item.company_name ? ` · ${item.company_name}` : ""}
@@ -284,7 +286,7 @@ export function CodingPage() {
                 {current.company_name ? (
                   <Link
                     to={`/app/companies/${current.company_slug}`}
-                    className="rounded-full bg-paper px-2.5 py-1 text-xs font-medium text-navy hover:underline"
+                    className="rounded-full bg-paper px-2.5 py-1 text-xs font-medium text-brand hover:underline"
                   >
                     {current.company_name}
                   </Link>
@@ -307,9 +309,16 @@ export function CodingPage() {
               </p>
             </article>
 
-            <div className="overflow-hidden rounded-xl border border-line bg-white">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-3 py-2 text-xs font-medium text-muted">
-                <span className="font-mono">{languages[language].file}</span>
+            <div className="overflow-hidden rounded-2xl border border-line bg-foam shadow-card">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-paper/60 px-3 py-2 text-xs font-medium text-muted">
+                <span className="flex items-center gap-3">
+                  <span className="flex gap-1.5" aria-hidden="true">
+                    <span className="h-2.5 w-2.5 rounded-full bg-clay/60" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-gold/60" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-pine/60" />
+                  </span>
+                  <span className="font-mono">{languages[language].file}</span>
+                </span>
                 <div className="flex items-center gap-2">
                   <button type="button" onClick={resetCode} className="rounded px-2 py-1 hover:bg-paper hover:text-ink">
                     Reset
@@ -320,7 +329,7 @@ export function CodingPage() {
                       id="language"
                       value={language}
                       onChange={(event) => changeLanguage(event.target.value as Language)}
-                      className="rounded-md border border-line bg-paper px-2 py-1 text-xs text-ink"
+                      className="rounded-xl border border-line bg-paper px-2 py-1 text-xs text-ink"
                     >
                       {(Object.keys(languages) as Language[]).map((value) => (
                         <option key={value} value={value}>
@@ -337,6 +346,7 @@ export function CodingPage() {
                 extensions={extensions}
                 onChange={editCode}
                 basicSetup={{ lineNumbers: true }}
+                theme={editorTheme}
                 aria-label={`Code editor, ${languages[language].label}`}
               />
               <p className="border-t border-line px-3 py-1.5 text-xs text-muted">
@@ -375,9 +385,9 @@ export function CodingPage() {
                         role="tab"
                         aria-selected={index === activeCase}
                         onClick={() => setActiveCase(index)}
-                        className={`rounded-md px-2.5 py-1 text-xs font-semibold ${
+                        className={`rounded-xl px-2.5 py-1 text-xs font-semibold ${
                           index === activeCase
-                            ? "bg-navy text-foam"
+                            ? "bg-navy text-onbrand"
                             : item.passed
                               ? "bg-pine/10 text-pine"
                               : "bg-clay/10 text-clay"
@@ -451,7 +461,7 @@ function SubmissionCard({ submission }: { submission: Submission }) {
             return (
               <li
                 key={index}
-                className={`rounded-md px-2 py-1 text-xs font-medium ${item.passed ? "bg-pine/10 text-pine" : "bg-clay/10 text-clay"}`}
+                className={`rounded-xl px-2 py-1 text-xs font-medium ${item.passed ? "bg-pine/10 text-pine" : "bg-clay/10 text-clay"}`}
                 title={statusLabel(item.passed ? "accepted" : item.status)}
               >
                 {item.passed ? "✓" : "✗"} {item.is_hidden ? `Hidden ${number}` : `Example ${number}`}
@@ -512,7 +522,7 @@ function FilterChip({ active, label, onClick }: { active: boolean; label: string
       aria-pressed={active}
       onClick={onClick}
       className={`shrink-0 rounded-full px-3 py-1.5 text-sm font-medium transition ${
-        active ? "bg-navy text-foam" : "border border-line bg-foam text-ink hover:bg-paper"
+        active ? "bg-navy text-onbrand" : "border border-line bg-foam text-ink hover:bg-paper"
       }`}
     >
       {label}

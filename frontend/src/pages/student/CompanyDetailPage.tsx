@@ -31,7 +31,7 @@ export function CompanyDetailPage() {
   }, [slug])
 
   const back = (
-    <Link to="/app/companies" className="text-sm font-medium text-navy hover:underline">
+    <Link to="/app/companies" className="text-sm font-medium text-brand hover:underline">
       ← All companies
     </Link>
   )
@@ -73,13 +73,13 @@ export function CompanyDetailPage() {
       <div className="mt-5 flex flex-wrap gap-2">
         <Link
           to={`/app/coding?company=${slug}`}
-          className="rounded-md bg-navy px-4 py-2.5 text-sm font-semibold text-foam hover:bg-navy-soft"
+          className="rounded-xl bg-navy px-4 py-2.5 text-sm font-semibold text-onbrand hover:bg-navy-soft"
         >
           Practice coding tasks
         </Link>
         <Link
           to="/app/interview/hr"
-          className="rounded-md border border-line bg-foam px-4 py-2.5 text-sm font-semibold hover:bg-paper"
+          className="rounded-xl border border-line bg-foam px-4 py-2.5 text-sm font-semibold hover:bg-paper"
         >
           Mock HR interview
         </Link>
@@ -99,7 +99,7 @@ export function CompanyDetailPage() {
                     </p>
                     <p className="mt-2 leading-relaxed">{question.prompt}</p>
                     {question.preparation_tip ? (
-                      <p className="mt-3 rounded-md bg-paper px-3 py-2 text-sm text-muted">
+                      <p className="mt-3 rounded-xl bg-paper px-3 py-2 text-sm text-muted">
                         <span className="font-semibold text-ink">Tip: </span>
                         {question.preparation_tip}
                       </p>

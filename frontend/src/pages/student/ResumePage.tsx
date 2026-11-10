@@ -168,9 +168,9 @@ export function ResumePage() {
             </label>
             <label
               htmlFor="resume-file"
-              className="flex cursor-pointer flex-wrap items-center gap-3 rounded-md border border-dashed border-line bg-foam px-4 py-4 transition hover:border-navy/40 focus-within:border-navy"
+              className="flex cursor-pointer flex-wrap items-center gap-3 rounded-xl border border-dashed border-line bg-foam px-4 py-4 transition hover:border-brand/40 focus-within:border-navy"
             >
-              <span className="rounded-md bg-navy px-3 py-1.5 text-xs font-semibold text-foam">Choose file</span>
+              <span className="rounded-xl bg-navy px-3 py-1.5 text-xs font-semibold text-onbrand">Choose file</span>
               <span className={file ? "font-medium" : "text-muted"}>
                 {file ? `${file.name} · ${sizeLabel(file.size)}` : "PDF or DOCX, up to 5 MB"}
               </span>
@@ -230,12 +230,12 @@ export function ResumePage() {
             </div>
           ) : null}
           {resumes?.length === 0 ? (
-            <p className="mt-3 rounded-lg border border-dashed border-line bg-foam px-4 py-5 text-sm text-muted">
+            <p className="mt-3 rounded-2xl border border-dashed border-line bg-foam px-4 py-5 text-sm text-muted">
               No resume yet. Your uploads appear here so you can re-run or reopen an analysis.
             </p>
           ) : null}
           {resumes && resumes.length > 0 ? (
-            <ul className="mt-3 divide-y divide-line rounded-lg border border-line bg-foam">
+            <ul className="mt-3 divide-y divide-line rounded-2xl border border-line bg-foam shadow-card">
               {resumes.map((item) => {
                 const isBusy = busy?.resumeId === item.id
                 return (
@@ -252,7 +252,7 @@ export function ResumePage() {
                           {item.latest_analysis.target_role} · {Math.round(item.latest_analysis.ats_score)}
                         </Badge>
                       ) : (
-                        <Badge className="border-amber-200 bg-amber-50 text-amber-800">Not analyzed</Badge>
+                        <Badge className="border-gold/30 bg-gold/10 text-gold">Not analyzed</Badge>
                       )}
                     </div>
                     <div className="mt-2 flex flex-wrap gap-2">
@@ -288,7 +288,7 @@ export function ResumePage() {
       </div>
 
       {analysis ? (
-        <section ref={resultRef} className="mt-10 scroll-mt-6 rounded-lg border border-line bg-foam p-5 sm:p-6">
+        <section ref={resultRef} className="mt-10 scroll-mt-6 rounded-2xl border border-line bg-foam shadow-card p-5 sm:p-6">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="text-xs font-semibold tracking-wider text-muted uppercase">Analysis</p>

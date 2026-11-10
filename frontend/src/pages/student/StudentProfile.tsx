@@ -119,7 +119,7 @@ export function StudentProfile() {
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <fieldset className="rounded-lg border border-line bg-foam p-5">
+    <fieldset className="rounded-2xl border border-line bg-foam shadow-card p-5">
       <legend className="px-1 font-serif text-xl">{title}</legend>
       <div className="mt-2 grid gap-4 sm:grid-cols-2">{children}</div>
     </fieldset>

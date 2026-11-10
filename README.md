@@ -1,4 +1,4 @@
-# AI Interview Preparation Platform
+# PrepPilot: AI Interview Preparation Platform
 
 Final-year B.Tech CSE (Data Science) capstone. One workspace where students prepare for campus placements with AI feedback, and the Training & Placement Office (TPO) sees which students need help.
 
@@ -18,6 +18,12 @@ The technical design is in [docs/architecture.md](docs/architecture.md).
 - **Placement readiness:** a Random Forest estimate with a what-if simulator (proof of concept, see below).
 - **Study roadmap:** generated from weak areas; completing items shrinks the preparation gap.
 - **Performance report:** one downloadable PDF.
+
+**Experience**
+- Modern responsive UI with light and dark themes (follows the system setting, remembered per browser).
+- ⌘K / Ctrl+K command palette to jump between pages.
+- Theme-aware charts and code editor, page transitions, loading placeholders, and keyboard and screen-reader support.
+- The product name lives in one constant (`BRAND` in `frontend/src/lib/theme.ts`).
 
 **TPO**
 - Batch table with branch and readiness filters, averages, and a per-student score drill-down that never shows interview transcripts.

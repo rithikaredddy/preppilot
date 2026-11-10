@@ -1,17 +1,119 @@
 @import "tailwindcss";
 
+/* Dark mode follows the .dark class on <html>, set by src/lib/theme.ts. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. Components use these names only, so light and dark themes
+ * swap by redefining the variables below.
+ *   paper   page background        foam    card / surface
+ *   ink     main text              muted   secondary text
+ *   line    borders                navy    brand fill (buttons, active states)
+ *   brand   brand-coloured text    onbrand text on a brand fill
+ *   clay    danger                 pine    success           gold  warning
+ */
 @theme {
-  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Newsreader", ui-serif, Georgia, serif;
-  --color-paper: #f3f0e8;
-  --color-foam: #faf8f4;
-  --color-ink: #1c1915;
-  --color-muted: #5f584e;
-  --color-line: #e3dbcd;
-  --color-navy: #1a3348;
-  --color-navy-soft: #24465f;
-  --color-clay: #8c3d32;
-  --color-pine: #1f6b4a;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Bricolage Grotesque", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-paper: #f4f5fa;
+  --color-foam: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #5a6478;
+  --color-line: #e3e6ef;
+  --color-navy: #4f46e5;
+  --color-navy-soft: #4338ca;
+  --color-brand: #4f46e5;
+  --color-onbrand: #ffffff;
+  --color-clay: #d33f49;
+  --color-pine: #0e9467;
+  --color-gold: #c27803;
+  --color-sidebar: #0d1330;
+  --color-sidebar-ink: #e8ebfa;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 6px 20px -8px rgb(15 23 42 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -16px rgb(79 70 229 / 0.28);
+  --shadow-glow: 0 10px 30px -10px rgb(99 102 241 / 0.55);
+
+  --animate-rise: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 0.3s ease-out both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+}
+
+.dark {
+  --color-paper: #0a0e1c;
+  --color-foam: #11172b;
+  --color-ink: #e8ebf4;
+  --color-muted: #9aa3b9;
+  --color-line: #232c45;
+  --color-navy: #6366f1;
+  --color-navy-soft: #7c83f5;
+  --color-brand: #a5b4fc;
+  --color-onbrand: #ffffff;
+  --color-clay: #f8717b;
+  --color-pine: #34d399;
+  --color-gold: #fbbf24;
+  --color-sidebar: #080b18;
+  --color-sidebar-ink: #e8ebfa;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px -12px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.3), 0 18px 40px -16px rgb(99 102 241 / 0.35);
+  color-scheme: dark;
+}
+
+/* Brand gradient used for highlights, the logo and primary calls to action. */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(135deg, #6366f1 0%, #8b5cf6 52%, #06b6d4 100%);
+}
+@utility text-brand-gradient {
+  background-image: linear-gradient(120deg, #6366f1 0%, #8b5cf6 45%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-line) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 70%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
 html {
@@ -24,6 +126,16 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
 }
 
 :focus-visible {
@@ -31,6 +143,21 @@ body {
   outline-offset: 2px;
 }
 
+::selection {
+  background: color-mix(in oklab, var(--color-navy) 25%, transparent);
+}
+
 #root {
   min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

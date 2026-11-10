@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react"
 import { Link, useParams } from "react-router"
 import { Alert, Badge, Button, LoadingLine, Notice, PageHeader, ScoreBar, TextArea } from "../../components/ui"
+import { icons } from "../../components/icons"
 import { errorMessage, formatDateTime, readStorage, writeStorage } from "../../lib/format"
 import { api, ApiError } from "../../services/api"
 import type { InterviewSession } from "../../types"
@@ -181,7 +182,7 @@ export function InterviewSessionPage() {
 
       {session ? (
         <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-          <Badge className={session.status === "completed" ? "border-pine/20 bg-pine/10 text-pine" : "border-navy/20 bg-navy/5 text-navy"}>
+          <Badge className={session.status === "completed" ? "border-pine/20 bg-pine/10 text-pine" : "border-brand/20 bg-brand/5 text-brand"}>
             {session.status === "completed" ? "Completed" : "In progress"}
           </Badge>
           {session.difficulty ? <Badge className="border-line bg-foam capitalize text-ink">{session.difficulty}</Badge> : null}
@@ -192,9 +193,9 @@ export function InterviewSessionPage() {
       ) : null}
 
       {session?.status === "completed" ? (
-        <section className="mt-8 rounded-lg border border-line bg-foam p-5">
+        <section className="mt-8 rounded-2xl border border-line bg-foam shadow-card p-5">
           <p className="text-xs font-semibold tracking-wider text-muted uppercase">Overall result</p>
-          <p className="mt-1 font-serif text-5xl text-navy">
+          <p className="mt-1 font-serif text-5xl text-brand">
             {session.overall_score === null ? "—" : Math.round(session.overall_score)}
             <span className="text-2xl text-muted">/100</span>
           </p>
@@ -212,30 +213,53 @@ export function InterviewSessionPage() {
         </section>
       ) : null}
 
-      <ol className="mt-8 space-y-4">
+      <ol className="mt-8 space-y-6">
         {session?.turns?.map((turn) => (
-          <li
-            key={turn.id}
-            ref={turn.id === openTurn?.id ? openTurnRef : undefined}
-            className={`scroll-mt-6 rounded-lg border bg-foam p-4 ${turn.id === openTurn?.id ? "border-navy/40 ring-2 ring-navy/10" : "border-line"}`}
-          >
-            <p className="text-xs tracking-wide text-muted uppercase">
-              Question {turn.turn_index}
-              {turn.is_follow_up ? " · Follow-up" : ""}
-              {turn.id === openTurn?.id ? " · Your turn" : ""}
-            </p>
-            <p className="mt-2 leading-relaxed">{turn.question_text}</p>
+          <li key={turn.id} ref={turn.id === openTurn?.id ? openTurnRef : undefined} className="scroll-mt-24 animate-rise space-y-3">
+            <div className="flex items-start gap-3">
+              <span
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-gradient text-white shadow-glow"
+                aria-hidden="true"
+              >
+                {icons.spark}
+              </span>
+              <div
+                className={`max-w-[85%] rounded-2xl rounded-tl-md border bg-foam px-4 py-3 shadow-card ${
+                  turn.id === openTurn?.id ? "border-brand/40 ring-4 ring-brand/10" : "border-line"
+                }`}
+              >
+                <p className="text-[11px] font-semibold tracking-wide text-muted uppercase">
+                  AI interviewer · Question {turn.turn_index}
+                  {turn.is_follow_up ? " · Follow-up" : ""}
+                  {turn.id === openTurn?.id ? <span className="text-brand"> · Your turn</span> : null}
+                </p>
+                <p className="mt-1.5 leading-relaxed">{turn.question_text}</p>
+              </div>
+            </div>
             {turn.answer_text ? (
-              <p className="mt-3 border-l-2 border-line pl-3 text-sm leading-relaxed text-muted">{turn.answer_text}</p>
+              <div className="flex justify-end">
+                <p className="max-w-[85%] rounded-2xl rounded-tr-md bg-navy px-4 py-3 text-sm leading-relaxed text-onbrand shadow-card">
+                  {turn.answer_text}
+                </p>
+              </div>
             ) : null}
             {turn.evaluation ? (
-              <div className="mt-3 border-t border-line pt-3 text-sm">
-                <p>{turn.evaluation.feedback}</p>
-                <p className="mt-2 text-muted">
-                  {Object.entries(turn.evaluation.scores)
-                    .map(([key, value]) => `${dimensionLabels[key] ?? key} ${value}`)
-                    .join(" · ")}
+              <div className="ml-12 rounded-2xl border border-line bg-paper/70 p-4 text-sm">
+                <p className="flex items-center gap-2 text-xs font-semibold tracking-wide text-brand uppercase">
+                  {icons.chart} Feedback
                 </p>
+                <p className="mt-2 leading-relaxed">{turn.evaluation.feedback}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {Object.entries(turn.evaluation.scores).map(([key, value]) => (
+                    <span
+                      key={key}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-foam px-2 py-1 text-xs"
+                    >
+                      <span className="text-muted">{dimensionLabels[key] ?? key}</span>
+                      <span className="font-semibold tabular-nums">{value}</span>
+                    </span>
+                  ))}
+                </div>
               </div>
             ) : null}
           </li>
@@ -298,7 +322,7 @@ export function InterviewSessionPage() {
         </div>
       ) : null}
       <p className="mt-8 text-sm">
-        <Link to="/app/interview/history" className="font-medium text-navy">
+        <Link to="/app/interview/history" className="font-medium text-brand">
           Back to history
         </Link>
       </p>

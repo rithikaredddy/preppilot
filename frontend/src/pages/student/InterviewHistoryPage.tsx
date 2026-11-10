@@ -19,7 +19,7 @@ export function InterviewHistoryPage() {
         title="Your practice record"
         body="Every finished interview keeps its questions, your answers, the turn scores, and the overall result. Coding submissions keep the test results and the AI review."
       />
-      <div className="mt-6 inline-flex rounded-lg border border-line bg-foam p-1" role="tablist" aria-label="History type">
+      <div className="mt-6 inline-flex rounded-2xl border border-line bg-foam shadow-card p-1" role="tablist" aria-label="History type">
         {(
           [
             ["interviews", "Interviews"],
@@ -32,7 +32,7 @@ export function InterviewHistoryPage() {
             role="tab"
             aria-selected={tab === value}
             onClick={() => setTab(value)}
-            className={`rounded-md px-4 py-1.5 text-sm font-medium transition ${tab === value ? "bg-navy text-foam" : "text-ink hover:bg-paper"}`}
+            className={`rounded-xl px-4 py-1.5 text-sm font-medium transition ${tab === value ? "bg-navy text-onbrand" : "text-ink hover:bg-paper"}`}
           >
             {label}
           </button>
@@ -105,10 +105,10 @@ function InterviewHistory() {
         title="No interviews yet"
         body="Start an HR or technical interview. The result appears here after you finish the session."
       >
-        <Link to="/app/interview/hr" className="rounded-md bg-navy px-4 py-2.5 text-sm font-semibold text-foam">
+        <Link to="/app/interview/hr" className="rounded-xl bg-navy px-4 py-2.5 text-sm font-semibold text-onbrand">
           Start an HR interview
         </Link>
-        <Link to="/app/interview/technical" className="rounded-md border border-line bg-foam px-4 py-2.5 text-sm font-semibold">
+        <Link to="/app/interview/technical" className="rounded-xl border border-line bg-foam px-4 py-2.5 text-sm font-semibold">
           Start a technical interview
         </Link>
       </EmptyState>
@@ -118,7 +118,7 @@ function InterviewHistory() {
   return (
     <>
       {error ? <Alert>{error}</Alert> : null}
-      <ul className="divide-y divide-line rounded-lg border border-line bg-foam">
+      <ul className="divide-y divide-line rounded-2xl border border-line bg-foam shadow-card">
         {items.map((session) => (
           <li key={session.id} className="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
             <div className="min-w-0">
@@ -133,9 +133,9 @@ function InterviewHistory() {
               {session.status === "completed" ? (
                 <ScorePill score={session.overall_score} />
               ) : (
-                <Badge className="border-navy/20 bg-navy/5 text-navy">In progress</Badge>
+                <Badge className="border-brand/20 bg-brand/5 text-brand">In progress</Badge>
               )}
-              <Link to={`/app/interview/${session.id}`} className="text-sm font-semibold text-navy hover:underline">
+              <Link to={`/app/interview/${session.id}`} className="text-sm font-semibold text-brand hover:underline">
                 {session.status === "completed" ? "View result" : "Continue"}
               </Link>
             </div>
@@ -155,7 +155,7 @@ function CodingHistory() {
   if (items.length === 0) {
     return (
       <EmptyState title="No submissions yet" body="Submit a solution on the coding page. Each submission is listed here with its result.">
-        <Link to="/app/coding" className="rounded-md bg-navy px-4 py-2.5 text-sm font-semibold text-foam">
+        <Link to="/app/coding" className="rounded-xl bg-navy px-4 py-2.5 text-sm font-semibold text-onbrand">
           Open coding practice
         </Link>
       </EmptyState>
@@ -165,7 +165,7 @@ function CodingHistory() {
   return (
     <>
       {error ? <Alert>{error}</Alert> : null}
-      <ul className="divide-y divide-line rounded-lg border border-line bg-foam">
+      <ul className="divide-y divide-line rounded-2xl border border-line bg-foam shadow-card">
         {items.map((item) => (
           <li key={item.id} className="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
             <div className="min-w-0">

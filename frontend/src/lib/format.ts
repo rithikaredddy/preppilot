@@ -75,7 +75,7 @@ export function statusLabel(status: string | null | undefined) {
 
 export function statusTone(status: string | null | undefined) {
   if (status === "accepted") return "bg-pine/10 text-pine border-pine/20"
-  if (status === "partial") return "bg-amber-100 text-amber-800 border-amber-200"
+  if (status === "partial") return "border-gold/30 bg-gold/10 text-gold"
   return "bg-clay/10 text-clay border-clay/20"
 }
 

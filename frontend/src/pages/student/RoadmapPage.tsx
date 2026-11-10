@@ -133,7 +133,7 @@ export function RoadmapPage() {
       ) : null}
       {plan && total > 0 ? (
         <section className="mt-6 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-lg border border-line bg-foam p-4">
+          <div className="rounded-2xl border border-line bg-foam shadow-card p-4">
             <p className="text-sm text-muted">Progress</p>
             <p className="mt-1 font-serif text-3xl">
               {completed}/{total} days
@@ -142,7 +142,7 @@ export function RoadmapPage() {
               <div className="h-2 rounded-full bg-pine transition-all" style={{ width: `${(completed / total) * 100}%` }} />
             </div>
           </div>
-          <div className="rounded-lg border border-line bg-foam p-4">
+          <div className="rounded-2xl border border-line bg-foam shadow-card p-4">
             <p className="text-sm text-muted">Preparation gap</p>
             <p className="mt-1 font-serif text-3xl">{Math.round(plan.gap.remaining_gap)}</p>
             <p className="mt-1 text-xs text-muted">
@@ -176,10 +176,10 @@ export function RoadmapPage() {
             title="No scores to plan from yet"
             body="Finish a resume review, interview, or coding problem. The roadmap is written from those scores."
           >
-            <Link to="/app/coding" className="rounded-md bg-navy px-4 py-2.5 text-sm font-semibold text-foam">
+            <Link to="/app/coding" className="rounded-xl bg-navy px-4 py-2.5 text-sm font-semibold text-onbrand">
               Solve a coding problem
             </Link>
-            <Link to="/app/resume" className="rounded-md border border-line bg-foam px-4 py-2.5 text-sm font-semibold">
+            <Link to="/app/resume" className="rounded-xl border border-line bg-foam px-4 py-2.5 text-sm font-semibold">
               Analyze a resume
             </Link>
           </EmptyState>
@@ -195,13 +195,13 @@ export function RoadmapPage() {
               <label className="flex cursor-pointer items-start gap-3">
                 <input
                   type="checkbox"
-                  className="mt-1 h-4 w-4 accent-navy"
+                  className="mt-1 h-4 w-4 accent-[var(--color-navy)]"
                   checked={item.is_complete}
                   disabled={savingId === item.id}
                   onChange={() => toggle(item)}
                 />
                 <span className="min-w-0">
-                  <span className="text-xs font-semibold tracking-wide text-navy uppercase">{item.topic}</span>
+                  <span className="text-xs font-semibold tracking-wide text-brand uppercase">{item.topic}</span>
                   <span className={`mt-1 block leading-relaxed ${item.is_complete ? "text-muted line-through" : ""}`}>
                     {item.subtopic}
                   </span>
@@ -210,7 +210,7 @@ export function RoadmapPage() {
                       href={item.resource_link}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-2 inline-block text-sm font-medium text-navy hover:underline"
+                      className="mt-2 inline-block text-sm font-medium text-brand hover:underline"
                     >
                       {item.resource_title} ↗<span className="sr-only"> (opens in a new tab)</span>
                     </a>

@@ -79,7 +79,7 @@ function InterviewSetup({
   return (
     <div className="mx-auto max-w-3xl">
       <PageHeader kicker={kicker} title={title} body={body} />
-      <form onSubmit={start} className="mt-8 grid gap-4 rounded-lg border border-line bg-foam p-5" aria-busy={pending}>
+      <form onSubmit={start} className="mt-8 grid gap-4 rounded-2xl border border-line bg-foam shadow-card p-5" aria-busy={pending}>
         {error ? <Alert>{error}</Alert> : null}
         {kind === "technical" ? (
           <>
@@ -118,7 +118,7 @@ function InterviewSetup({
           ) : (
             <>
               No resume is saved yet. You can start without one, or{" "}
-              <Link to="/app/resume" className="font-medium text-navy underline-offset-2 hover:underline">
+              <Link to="/app/resume" className="font-medium text-brand underline-offset-2 hover:underline">
                 upload a resume first
               </Link>
               .
