@@ -9,7 +9,7 @@ import {
 } from "react"
 
 const controlClass =
-  "w-full rounded-xl border border-line bg-foam px-3 py-2.5 text-sm text-ink placeholder:text-muted/70 transition focus:border-brand/50 aria-[invalid=true]:border-clay/60"
+  "w-full rounded-xl border border-line bg-foam px-3.5 py-2.5 text-sm text-ink placeholder:text-muted/70 transition outline-none hover:border-brand/30 focus:border-brand/60 focus:ring-4 focus:ring-brand/15 aria-[invalid=true]:border-clay/60"
 
 export function Spinner({ className = "" }: { className?: string }) {
   return (

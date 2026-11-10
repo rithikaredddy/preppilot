@@ -5,7 +5,32 @@ import { defineConfig } from "vite"
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
-    dedupe: ["react", "react-dom"],
+    // One copy of each CodeMirror core package: two copies of @codemirror/state
+    // break the editor ("Unrecognized extension value") and blank the page.
+    dedupe: [
+      "react",
+      "react-dom",
+      "@codemirror/state",
+      "@codemirror/view",
+      "@codemirror/language",
+      "@lezer/common",
+      "@lezer/highlight",
+      "@lezer/lr",
+    ],
+  },
+  optimizeDeps: {
+    // Pre-bundle every editor grammar together at start-up. Otherwise the dev
+    // server bundles Java/C++ separately the first time they are picked, with
+    // their own copy of the editor core.
+    include: [
+      "@uiw/react-codemirror",
+      "@codemirror/state",
+      "@codemirror/view",
+      "@codemirror/language",
+      "@codemirror/lang-python",
+      "@codemirror/lang-java",
+      "@codemirror/lang-cpp",
+    ],
   },
   build: {
     rolldownOptions: {

@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router"
 import { useEffect, useState, type ReactNode } from "react"
 import { CommandPalette, type Command } from "../components/CommandPalette"
+import { ErrorBoundary } from "../components/ErrorBoundary"
 import { ThemeToggle } from "../components/ThemeToggle"
 import { icons } from "../components/icons"
 import { Logo } from "../components/ui"
@@ -159,7 +160,9 @@ export function AppShell({ items, kicker }: { items: Item[]; kicker: string }) {
         </header>
         <main id="main" className="px-4 py-6 sm:px-5 md:px-8 md:py-9">
           <div key={location.pathname} className="animate-rise">
-            <Outlet />
+            <ErrorBoundary resetKey={location.pathname}>
+              <Outlet />
+            </ErrorBoundary>
           </div>
         </main>
       </div>

@@ -68,7 +68,7 @@ export function CommandPalette({
         className="mx-auto w-full max-w-lg overflow-hidden rounded-2xl border border-line bg-foam shadow-lift animate-rise"
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <div className="flex items-center gap-3 border-b border-line px-4">
+        <div className="flex items-center gap-3 border-b border-line px-4 transition focus-within:bg-brand/[0.03]">
           <span className="text-muted">{icons.search}</span>
           <input
             ref={inputRef}
@@ -91,7 +91,7 @@ export function CommandPalette({
             }}
             placeholder="Jump to a page or action…"
             aria-label="Search pages and actions"
-            className="h-14 w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted"
+            className="h-14 w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted focus-visible:outline-none"
           />
           <kbd className="rounded-md border border-line px-1.5 py-0.5 text-[10px] font-semibold text-muted">ESC</kbd>
         </div>
@@ -103,7 +103,8 @@ export function CommandPalette({
                 type="button"
                 onMouseEnter={() => setActive(index)}
                 onClick={() => choose(item)}
-                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition ${
+                tabIndex={-1}
+                className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition outline-none ${
                   index === active ? "bg-brand/10 text-brand" : "text-ink"
                 }`}
               >
