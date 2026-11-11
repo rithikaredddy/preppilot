@@ -42,6 +42,14 @@ def execute(source_code: str, language: str, stdin: str, time_limit_ms: int, mem
                 "Code execution needs JUDGE0_URL on this server.",
             )
         if language in {"python", "java", "cpp"}:
+            if language not in current_app.config.get("LOCAL_RUNNER_LANGUAGES", []):
+                names = {"python": "Python", "java": "Java", "cpp": "C++"}
+                raise ApiError(
+                    503,
+                    "code_runner_not_configured",
+                    f"{names[language]} is not available on this server yet. Try Python, "
+                    "or ask the administrator to set JUDGE0_URL.",
+                )
             from app.services.sandbox import run_local
 
             return run_local(source_code, language, stdin, time_limit_ms, memory_limit_kb)

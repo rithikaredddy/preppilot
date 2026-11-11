@@ -326,6 +326,7 @@ Data loading uses a typed API client. Pages render loading, empty, and error sta
 | `JUDGE0_URL` | Isolated code execution base URL |
 | `JUDGE0_API_KEY`, `JUDGE0_HOST` | Hosted Judge0 (RapidAPI) credentials |
 | `ALLOW_LOCAL_CODE_RUNNER` | Local subprocess runner; defaults on in development, off in production |
+| `LOCAL_RUNNER_LANGUAGES` | Languages the local runner accepts (`python,java,cpp`); the free deployment uses `python` |
 | `LOGIN_MAX_FAILURES`, `LOGIN_LOCKOUT_MINUTES` | Failed sign-in throttle (default 5 per 15 minutes) |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_FROM` | Password reset mail |
 | `PASSWORD_RESET_DEV_EXPOSE` | Development-only reset token echo |

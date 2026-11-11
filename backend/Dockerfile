@@ -22,4 +22,4 @@ USER app
 EXPOSE 8000
 
 # Apply migrations, then serve. Render and Railway pass $PORT.
-CMD ["sh", "-c", "flask --app run.py db upgrade --directory migrations && exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 2 --threads 4 --timeout 120 --access-logfile - run:app"]
+CMD ["sh", "-c", "flask --app run.py db upgrade --directory migrations && exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers ${WEB_CONCURRENCY:-1} --threads 8 --timeout 120 --access-logfile - run:app"]

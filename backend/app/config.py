@@ -34,6 +34,7 @@ def load_settings(*, testing: bool) -> dict:
         judge0_key = ""
         judge0_host = ""
         allow_local_code = True
+        local_languages = ["python", "java", "cpp"]
     else:
         database_url = _normalize_database_url(
             os.environ.get(
@@ -65,6 +66,13 @@ def load_settings(*, testing: bool) -> dict:
         judge0_key = os.environ.get("JUDGE0_API_KEY", "")
         judge0_host = os.environ.get("JUDGE0_HOST", "")
         allow_local_code = _flag("ALLOW_LOCAL_CODE_RUNNER", default=env_name != "production")
+        # Python has an in-process guard; Java and C++ only get a clean environment,
+        # so a public server should list just "python" here and use Judge0 for the rest.
+        local_languages = [
+            item.strip().lower()
+            for item in os.environ.get("LOCAL_RUNNER_LANGUAGES", "python,java,cpp").split(",")
+            if item.strip()
+        ]
         if env_name == "production":
             _check_production(
                 jwt_secret=jwt_secret,
@@ -107,6 +115,7 @@ def load_settings(*, testing: bool) -> dict:
         "JUDGE0_API_KEY": judge0_key,
         "JUDGE0_HOST": judge0_host,
         "ALLOW_LOCAL_CODE_RUNNER": allow_local_code,
+        "LOCAL_RUNNER_LANGUAGES": local_languages,
         "LOGIN_MAX_FAILURES": int(os.environ.get("LOGIN_MAX_FAILURES", "5")),
         "LOGIN_LOCKOUT_MINUTES": int(os.environ.get("LOGIN_LOCKOUT_MINUTES", "15")),
         "API_TITLE": "AI Interview Preparation Platform",

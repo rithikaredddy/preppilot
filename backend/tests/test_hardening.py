@@ -136,3 +136,20 @@ def test_database_url_gets_a_driver(url, expected):
 def test_relative_upload_dir_resolves_from_project_root():
     assert _resolve_path("backend/uploads") == str((ROOT_DIR / "backend" / "uploads").resolve())
     assert _resolve_path("/var/data/uploads") == "/var/data/uploads"
+
+
+def test_local_runner_can_be_limited_to_python(client, app):
+    payload = student_payload(email="python.only@example.com", roll_number="CS903")
+    token = client.post("/api/v1/auth/register", json=payload).get_json()["access_token"]
+    problems = client.get("/api/v1/coding/problems", headers=auth_header(token)).get_json()["items"]
+    app.config["LOCAL_RUNNER_LANGUAGES"] = ["python"]
+    try:
+        response = client.post(
+            f"/api/v1/coding/problems/{problems[0]['id']}/run",
+            headers=auth_header(token),
+            json={"language": "java", "source_code": "class Main {}"},
+        )
+    finally:
+        app.config["LOCAL_RUNNER_LANGUAGES"] = ["python", "java", "cpp"]
+    assert response.status_code == 503
+    assert "Java is not available" in response.get_json()["error"]["message"]
